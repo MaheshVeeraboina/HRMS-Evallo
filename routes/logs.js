@@ -28,7 +28,15 @@ router.get('/', async (req, res) => {
     res.json(logs);
   } catch (error) {
     console.error('Get logs error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('Error details:', {
+      message: error.message,
+      code: error.code,
+      meta: error.meta
+    });
+    res.status(500).json({ 
+      message: 'Internal server error',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 });
 

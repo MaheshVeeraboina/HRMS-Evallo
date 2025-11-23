@@ -37,7 +37,15 @@ router.get('/', async (req, res) => {
     res.json(formattedEmployees);
   } catch (error) {
     console.error('Get employees error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('Error details:', {
+      message: error.message,
+      code: error.code,
+      meta: error.meta
+    });
+    res.status(500).json({ 
+      message: 'Internal server error',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 });
 
@@ -73,7 +81,15 @@ router.get('/:id', async (req, res) => {
     });
   } catch (error) {
     console.error('Get employee error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('Error details:', {
+      message: error.message,
+      code: error.code,
+      meta: error.meta
+    });
+    res.status(500).json({ 
+      message: 'Internal server error',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 });
 
@@ -114,7 +130,15 @@ router.post(
       res.status(201).json(employee);
     } catch (error) {
       console.error('Create employee error:', error);
-      res.status(500).json({ message: 'Internal server error' });
+      console.error('Error details:', {
+        message: error.message,
+        code: error.code,
+        meta: error.meta
+      });
+      res.status(500).json({ 
+        message: 'Internal server error',
+        error: process.env.NODE_ENV === 'development' ? error.message : undefined
+      });
     }
   }
 );
@@ -166,7 +190,15 @@ router.put(
       res.json(updatedEmployee);
     } catch (error) {
       console.error('Update employee error:', error);
-      res.status(500).json({ message: 'Internal server error' });
+      console.error('Error details:', {
+        message: error.message,
+        code: error.code,
+        meta: error.meta
+      });
+      res.status(500).json({ 
+        message: 'Internal server error',
+        error: process.env.NODE_ENV === 'development' ? error.message : undefined
+      });
     }
   }
 );
@@ -200,7 +232,15 @@ router.delete('/:id', async (req, res) => {
     res.json({ message: 'Employee deleted successfully' });
   } catch (error) {
     console.error('Delete employee error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('Error details:', {
+      message: error.message,
+      code: error.code,
+      meta: error.meta
+    });
+    res.status(500).json({ 
+      message: 'Internal server error',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 });
 
